@@ -1,0 +1,5 @@
+lluisp;123456;admin;
+mariagomez;mgomez;basic;
+danimp;s2cr2t;basic;
+daina2001;d13n1;admin;
+jonathangarcia;654321;basic;
