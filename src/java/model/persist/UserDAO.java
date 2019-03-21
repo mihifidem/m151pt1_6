@@ -53,11 +53,22 @@ public class UserDAO {
         return list;
     }
 
-    public void deleteUser(String username) {
-    }
 
     public int addUser(User u) {
-        return 0;
+        int rowsAffected;
+
+        try ( Connection conn = dataSource.getConnection();
+              PreparedStatement pst = conn.prepareStatement(getQuery("INSERT")); )
+        {
+            pst.setString(1, u.getUsername());
+            pst.setString(2, u.getPassword());
+            pst.setString(3, u.getRole());
+            rowsAffected = pst.executeUpdate();
+        } catch (SQLException e) {
+            rowsAffected = 0;
+        }
+
+        return rowsAffected;
     }
 
     public User findOne(User user) {
@@ -85,7 +96,20 @@ public class UserDAO {
         return userFind;
     }
 
-    public String findUser4Role(User u) {
-        return null;
+    public int deleteUser(String username) {
+        int rowsAffected;
+
+        try ( Connection conn = dataSource.getConnection();
+              PreparedStatement pst = conn.prepareStatement(getQuery("DELETE")); )
+        {
+            pst.setString(1, username);
+            rowsAffected = pst.executeUpdate();
+        } catch (SQLException e) {
+            rowsAffected = -2;
+        }
+
+        return rowsAffected;
     }
+    
+    
 }

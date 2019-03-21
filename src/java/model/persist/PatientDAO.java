@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Properties;
 import model.Patient;
+import model.User;
 
 
 public class PatientDAO {
@@ -71,6 +72,29 @@ public class PatientDAO {
         return list;
     }
    
+public int addPatient(Patient p) {
+        int rowsAffected;
+
+        try ( Connection conn = dataSource.getConnection();
+              PreparedStatement pst = conn.prepareStatement(getQuery("INSERT")); )
+        {
+            pst.setInt(1, p.getAge());
+            pst.setString(2, p.getGrupEdat());
+            pst.setInt(3, p.getWeight());
+            pst.setInt(4, p.getHeight());
+            pst.setDouble(5, p.getImc());        
+            pst.setString(6, p.getClassification());
+            pst.setInt(7, p.getManarche());
+            pst.setBoolean(8, p.getMenopause());
+            pst.setString(9, p.getMenopauseType());
+
+            rowsAffected = pst.executeUpdate();
+        } catch (SQLException e) {
+            rowsAffected = 0;
+        }
+
+        return rowsAffected;
+    }
 
    
 

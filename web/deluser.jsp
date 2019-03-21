@@ -17,10 +17,22 @@
     <body>
         <h3>Delete Page</h3>
         <%@include file="menu.jsp" %>
+        
         <form method="post" action="user">
             Username to delete: <input type="text" name="username" required/>
             <br/>
             <input type="submit" name="action" value="Delete"/>
         </form>
+        <%            /*if(request.getParameter("error")!=null){
+                String error=request.getParameter("error");
+                out.println(error);
+            }*/
+            if (request.getAttribute("error") != null) {
+                String error = (String) request.getAttribute("error");
+                out.println(error);
+            }
+
+
+        %>
     </body>
 </html>
