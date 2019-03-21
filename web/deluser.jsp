@@ -9,19 +9,24 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Delete Page</title>
+        <title>Delete User</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
         <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/starter-template/starter-template.css" />
 
     </head>
     <body>
-        <h3>Delete Page</h3>
+        <h3>Delete User</h3>
         <%@include file="menu.jsp" %>
         
         <form method="post" action="user">
-            Username to delete: <input type="text" name="username" required/>
-            <br/>
-            <input type="submit" name="action" value="Delete"/>
+            <div class="form-group">
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label">Username to delete</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text" name="username" required/>
+                    </div>
+                </div>
+            <input class="btn btn-default" type="submit" name="action" value="Delete"/>
         </form>
         <%            /*if(request.getParameter("error")!=null){
                 String error=request.getParameter("error");

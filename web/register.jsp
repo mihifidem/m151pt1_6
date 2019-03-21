@@ -15,18 +15,33 @@
 
     </head>
     <body>
-        <h3>Login page</h3>
+        <h3>Add User</h3>
         <%@include file="menu.jsp"%>
         <br/>
 
         <form method="post" action="user">
-            Username: <input type="text" name="username" />
-            <br/>
-            Password: <input type="password" name="password" />
-            <br/>
-            Repeat Password: <input type="password" name="repassword" />
-            <br/>
-            <input type="submit" name="action" value="Register"/>
+            <div class="form-group">
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label">Username</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text" name="username"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label">Password</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="password" name="password"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label">Repeat password</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="password" name="repassword"/>
+                    </div>
+                </div>            
+                
+                <input class="btn btn-default" type="submit" name="action" value="Register"/>
+            </div>
 
         </form>
         <%            /*if(request.getParameter("error")!=null){

@@ -17,7 +17,6 @@
     <body>
         <h3>Add Patient</h3>
         <%@include file="menu.jsp"%>
-        <br/>
 
         <form method="post" action="Main">
             <div class="form-group">

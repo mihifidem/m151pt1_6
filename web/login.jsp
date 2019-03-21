@@ -19,13 +19,25 @@
         <%@include file="menu.jsp"%>
         <br/>
        <!-- Si no estás registrado, clica <a href="register.jsp">aquí</a>-->
-        
+       <p class='navbar navbar-expand-lg navbar-light bg-light'>Introduce your data login.</p>
+
         <form method="post" action="user">
-            Username: <input type="text" name="username"/>
-            <br/>
-            Password: <input type="password" name="password" />
-            <br/>
-            <input type="submit" name="action" value="Validate"/>
+            <div class="form-group">
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label">Username</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text" name="username"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label">Password</label>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text" name="password"/>
+                    </div>
+                </div>
+                <input class="btn btn-default" type="submit" name="action" value="Validate"/>
+                <input class="btn btn-default" type="submit" name="action" value="Back"/>
+            </div>
                         
         </form>
         

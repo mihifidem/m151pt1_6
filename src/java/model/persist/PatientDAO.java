@@ -13,7 +13,6 @@ import java.util.Properties;
 import model.Patient;
 import model.User;
 
-
 public class PatientDAO {
 
     private final Properties queries;
@@ -41,12 +40,10 @@ public class PatientDAO {
         return dataSource;
     }
 
-   
-     public ArrayList<Patient> findAll() {
+    public ArrayList<Patient> findAll() {
         ArrayList<Patient> list = new ArrayList<>();
-        try ( Connection conn = dataSource.getConnection();
-              Statement st = conn.createStatement(); )
-        {    
+        try (Connection conn = dataSource.getConnection();
+                Statement st = conn.createStatement();) {
             ResultSet res = st.executeQuery(getQuery("FIND_ALL"));
 
             while (res.next()) {
@@ -63,26 +60,62 @@ public class PatientDAO {
                 pat.setMenopauseType(res.getString("menopausetype"));
                 list.add(pat);
             }
-         
 
         } catch (SQLException e) {
             list = new ArrayList<>();
         }
-        
+
         return list;
     }
-   
+
+    public ArrayList<Patient> findFilter(Patient p) {
+        int rowsAffected;
+        ArrayList<Patient> list = new ArrayList<>();
+
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement st = conn.prepareStatement(getQuery("FILTER"));) {
+
+            st.setString(1, p.getClassification());
+            st.setBoolean(2, p.getMenopause());
+            st.setString(3, p.getMenopauseType());
+            
+            ResultSet res = st.executeQuery();
+
+
+
+            while (res.next()) {
+                Patient pat = new Patient();
+                pat.setIdRegister(res.getInt("id_register"));
+                pat.setAge(res.getInt("age"));
+                pat.setGrupEdat(res.getString("grupage"));
+                pat.setWeight(res.getInt("weight"));
+                pat.setHeight(res.getInt("height"));
+                pat.setImc(res.getDouble("imc"));
+                pat.setClassification(res.getString("classification"));
+                pat.setManarche(res.getInt("menarche"));
+                pat.setMenopause(res.getBoolean("menopause"));
+                pat.setMenopauseType(res.getString("menopausetype"));
+                list.add(pat);
+            }
+
+        } catch (SQLException e) {
+            rowsAffected = 0; 
+            list = new ArrayList<>();
+        }
+
+    return list ;
+}
+
 public int addPatient(Patient p) {
         int rowsAffected;
 
-        try ( Connection conn = dataSource.getConnection();
-              PreparedStatement pst = conn.prepareStatement(getQuery("INSERT")); )
-        {
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement pst = conn.prepareStatement(getQuery("INSERT"));) {
             pst.setInt(1, p.getAge());
             pst.setString(2, p.getGrupEdat());
             pst.setInt(3, p.getWeight());
             pst.setInt(4, p.getHeight());
-            pst.setDouble(5, p.getImc());        
+            pst.setDouble(5, p.getImc());
             pst.setString(6, p.getClassification());
             pst.setInt(7, p.getManarche());
             pst.setBoolean(8, p.getMenopause());
@@ -95,7 +128,5 @@ public int addPatient(Patient p) {
 
         return rowsAffected;
     }
-
-   
 
 }

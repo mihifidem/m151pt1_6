@@ -56,6 +56,9 @@ public class UserController extends HttpServlet {
                 case "Delete":
                     deluser(request, response);
                     break;
+                case "Back":
+                    response.sendRedirect("index.jsp");
+                    break;
 
             }
 
@@ -233,7 +236,7 @@ public class UserController extends HttpServlet {
 
             }
 
-        } 
+        }
         request.setAttribute("error", messages);
         RequestDispatcher rd = request.getRequestDispatcher("deluser.jsp");
         rd.forward(request, response);

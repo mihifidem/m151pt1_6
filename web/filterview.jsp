@@ -12,8 +12,13 @@
         <title>App Osteoporosi 1.6</title>
     </head>
     <body>
+        <h3>Filter Patient</h3>
+        <%@include file="menu.jsp"%>
+        <br/>
+        <%@include file="filterPatient.jsp"%>
+
         <%
-           response.sendRedirect("Main?action=loadData");        
+            response.sendRedirect("Main?action=filterPatient");
         %>
     </body>
 </html>

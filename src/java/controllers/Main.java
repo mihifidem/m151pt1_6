@@ -49,6 +49,9 @@ public class Main extends HttpServlet {
                 case "addPatient":
                     addPatient(request, response);
                     break;
+                case "filterPatient":
+                    filterPatient(request, response);
+                    break;
 
             }
 
@@ -126,21 +129,21 @@ public class Main extends HttpServlet {
         weight = Integer.parseInt(request.getParameter("weight"));
         int height = 0;
         height = Integer.parseInt(request.getParameter("height"));
-        double imc=0;
+        double imc = 0;
         if ((weight > 0) && (height > 0)) {
-            imc = (weight / ((height/100)^2));
+            imc = (weight / ((height / 100) ^ 2));
         } else {
             messages += "<br>Los valores peso y altura deben ser mayores de cero.";
         }
         String classification = request.getParameter("classification");
         int manarche = 0;
         manarche = Integer.parseInt(request.getParameter("manarche"));
-        if (request.getParameter("menopause")=="YES") {
-             menopause = true;
-        }else {
-             menopause = false;
+        if (request.getParameter("menopause") == "YES") {
+            menopause = true;
+        } else {
+            menopause = false;
         }
-        
+
         String menopauseType = request.getParameter("menopauseType");
 
         if (!Validation.NumEntreValues(age, 1, 120)) {
@@ -178,5 +181,24 @@ public class Main extends HttpServlet {
         rd.forward(request, response);
 
     }
-    
+
+    private void filterPatient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Patient> dataPatients = new ArrayList();
+        String classification = request.getParameter("classification");
+        boolean menopause;
+        if (request.getParameter("menopause") == "YES") {
+            menopause = true;
+        } else {
+            menopause = false;
+        }
+        String menopauseType = request.getParameter("menopauseType");
+        Patient p = new Patient(0, 0, null, 0, 0, 0, classification, 0, menopause, menopauseType);
+
+        dataPatients = pdao.findFilter(p);
+        request.setAttribute("listObjPatients", dataPatients);
+
+        RequestDispatcher rd = request.getRequestDispatcher("viewpatients.jsp");
+        rd.forward(request, response);
+    }
+
 }
