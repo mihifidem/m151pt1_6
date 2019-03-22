@@ -13,6 +13,11 @@ import java.util.Properties;
 import model.Patient;
 import model.User;
 
+/**
+ * Conector con BBD de la clase Patient
+ *
+ * @author obp
+ */
 public class PatientDAO {
 
     private final Properties queries;
@@ -40,6 +45,11 @@ public class PatientDAO {
         return dataSource;
     }
 
+    /**
+     * Leer todos los registros
+     *
+     * @return ArrayList de Patient
+     */
     public ArrayList<Patient> findAll() {
         ArrayList<Patient> list = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
@@ -68,6 +78,12 @@ public class PatientDAO {
         return list;
     }
 
+    /**
+     * Consulta filtro Patient
+     *
+     * @param p filtro
+     * @return Arralist Patient result select
+     */
     public ArrayList<Patient> findFilter(Patient p) {
         int rowsAffected;
         ArrayList<Patient> list = new ArrayList<>();
@@ -78,10 +94,8 @@ public class PatientDAO {
             st.setString(1, p.getClassification());
             st.setBoolean(2, p.getMenopause());
             st.setString(3, p.getMenopauseType());
-            
+
             ResultSet res = st.executeQuery();
-
-
 
             while (res.next()) {
                 Patient pat = new Patient();
@@ -99,14 +113,19 @@ public class PatientDAO {
             }
 
         } catch (SQLException e) {
-            rowsAffected = 0; 
+            rowsAffected = 0;
             list = new ArrayList<>();
         }
 
-    return list ;
-}
+        return list;
+    }
 
-public int addPatient(Patient p) {
+    /**
+     * Insert objeti patient a BBDD
+     * @param p objeto analir
+     * @return int result 1 = ok 0=fail
+     */
+    public int addPatient(Patient p) {
         int rowsAffected;
 
         try (Connection conn = dataSource.getConnection();

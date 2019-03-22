@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Osteoporosi</title>
+        <title>App Osteoporosi 1.6</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
         <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/starter-template/starter-template.css" />
 
@@ -17,7 +17,7 @@
     <body>
         <h3>Filter Patient</h3>
         <%@include file="menu.jsp"%>
-
+       
         <form method="post" action="Main">
             <div class="form-group">
                 
@@ -55,7 +55,12 @@
                 <input class="btn btn-default" type="submit" name="action" value="filterPatient"/>
             </div>
         </form>
-
+         <%
+           if (request.getAttribute("error") != null) {
+                String error = (String) request.getAttribute("error");
+                out.println(error);
+            }
+        %>
 
     </body>
 </html>

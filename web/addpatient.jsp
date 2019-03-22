@@ -1,6 +1,6 @@
 <%-- 
     Document   : addPatient
-    Created on : Dec 19, 2018, 3:39:25 PM
+    Created on : Marzo/2019
     Author     : Oscar Burgos
 --%>
 
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
+        <title>App Osteoposis 1.6</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
         <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/starter-template/starter-template.css" />
 
@@ -23,9 +23,9 @@
                 <div class="form-group row">
                     <label class="col-sm-1 col-form-label">Age</label>
                     <div class="col-sm-3">
-                        <input class="form-control" type="number" name="age"/>
+                        <input class="form-control" type="number" name="age" min="1" max="120"/>
                     </div>
-                </div>
+                </div> 
                 <div class="form-group row">
                     <label class="col-sm-1 col-form-label">Group Age</label>
                     <div class="col-sm-3">
@@ -43,13 +43,13 @@
                 <div class="form-group row">
                     <label class="col-sm-1 col-form-label">Weight</label>
                     <div class="col-sm-3">
-                        <input class="form-control" type="number" name="weight"/>
+                        <input class="form-control" type="number" name="weight" min="10" max="150" />
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-1 col-form-label">Height</label>
                     <div class="col-sm-3">
-                        <input class="form-control" type="number" name="height"/>
+                        <input class="form-control" type="number" name="height" min="30" max="210" />
                     </div>
                 </div>
                 <div class="form-group row">
@@ -65,7 +65,7 @@
                 <div class="form-group row">
                     <label class="col-sm-1 col-form-label">Manarche</label>
                     <div class="col-sm-3">
-                        <input class="form-control" type="number" name="manarche"/>
+                        <input class="form-control" type="number" name="manarche" min="5" max="18"/>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -98,12 +98,23 @@
                     </div>
                 </div>     
 
-                <!--<button type="button" class="btn btn-default" name="action" value="addPatient">Add</button>-->
                 
                 <input class="btn btn-default" type="submit" name="action" value="addPatient"/>
             </div>
         </form>
-
+<%
+            
+           if(request.getParameter("error")!=null){
+              //out.println("Usuario y/o contraseña incorrectas");
+   
+               String error=request.getParameter("error");
+               out.println(error);
+           } 
+            
+            
+            
+            
+        %>
 
 
     </body>

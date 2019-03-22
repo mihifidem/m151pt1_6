@@ -2,7 +2,7 @@ package model;
 
 /**class model patients
  *@author Oscar Burgos
- *@version 1Marzo/2019
+ *@version Marzo/2019
  */
 public class Patient {
     

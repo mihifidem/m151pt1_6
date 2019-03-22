@@ -3,12 +3,7 @@ package controllers;
 import utilities.Validation;
 
 import model.User;
-import model.persist.FileUserDAO;
-
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,11 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Patient;
 import model.persist.UserDAO;
 
 /**
- * Usercontroller.java Controlador de usuario
+ * Usercontroller.java Controlador de usuarios
  *
  * @author Oscar Burgos
  * @version marzo/2019
@@ -171,8 +165,6 @@ public class UserController extends HttpServlet {
                 messages += "<br>La mida mínima és 6 caràcters";
             }
 
-            //se podrían hacer mas validaciones
-            //por ejemplo:validar que hi hagin lletres i números al username
             //cuando llego a este punto NO HAY errores
             if (messages.equals("")) {
                 User u = new User(username, password, role);

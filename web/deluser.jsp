@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Delete User</title>
+        <title>App Osteoporosi 1.6</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
         <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/starter-template/starter-template.css" />
 
@@ -28,10 +28,7 @@
                 </div>
             <input class="btn btn-default" type="submit" name="action" value="Delete"/>
         </form>
-        <%            /*if(request.getParameter("error")!=null){
-                String error=request.getParameter("error");
-                out.println(error);
-            }*/
+        <%        
             if (request.getAttribute("error") != null) {
                 String error = (String) request.getAttribute("error");
                 out.println(error);

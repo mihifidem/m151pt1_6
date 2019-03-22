@@ -8,12 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Properties;
-
 import model.User;
 
+/**
+ * Clase conector a bbdd Users
+ *
+ * @author obp
+ */
 public class UserDAO {
 
     private static DBConnect dataSource;
@@ -32,6 +34,11 @@ public class UserDAO {
         return queries.getProperty(queryName);
     }
 
+    /**
+     * Select all users of BBDD
+     *
+     * @return
+     */
     public ArrayList<User> findAll() {
         ArrayList<User> list = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
@@ -53,13 +60,16 @@ public class UserDAO {
         return list;
     }
 
-
+    /**
+     * insert user a bbdd
+     * @param u object user to add
+     * @return result 1=ok 0 = fail
+     */
     public int addUser(User u) {
         int rowsAffected;
 
-        try ( Connection conn = dataSource.getConnection();
-              PreparedStatement pst = conn.prepareStatement(getQuery("INSERT")); )
-        {
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement pst = conn.prepareStatement(getQuery("INSERT"));) {
             pst.setString(1, u.getUsername());
             pst.setString(2, u.getPassword());
             pst.setString(3, u.getRole());
@@ -70,17 +80,20 @@ public class UserDAO {
 
         return rowsAffected;
     }
+    /**
+     * Select find by username and password
 
+     * @param user object user to find
+     * @return  object user finded
+     */
     public User findOne(User user) {
         User userFind = null;
 
-        try ( Connection conn = dataSource.getConnection();
-              PreparedStatement st = conn.prepareStatement(getQuery("FIND_ONE")); )
-        {
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement st = conn.prepareStatement(getQuery("FIND_ONE"));) {
             st.setString(1, user.getUsername());
             st.setString(2, user.getPassword());
-            
-            
+
             ResultSet res = st.executeQuery();
             while (res.next()) {
                 userFind = new User();
@@ -88,20 +101,23 @@ public class UserDAO {
                 userFind.setPassword(res.getString("password"));
                 userFind.setRole(res.getString("role"));
             }
-            
-            
+
         } catch (SQLException e) {
         }
 
         return userFind;
     }
 
+    /**
+     * delete user from bbdd
+     * @param username to delete
+     * @return int result 0=fail 1=ok
+     */
     public int deleteUser(String username) {
         int rowsAffected;
 
-        try ( Connection conn = dataSource.getConnection();
-              PreparedStatement pst = conn.prepareStatement(getQuery("DELETE")); )
-        {
+        try (Connection conn = dataSource.getConnection();
+                PreparedStatement pst = conn.prepareStatement(getQuery("DELETE"));) {
             pst.setString(1, username);
             rowsAffected = pst.executeUpdate();
         } catch (SQLException e) {
@@ -110,6 +126,4 @@ public class UserDAO {
 
         return rowsAffected;
     }
-    
-    
 }

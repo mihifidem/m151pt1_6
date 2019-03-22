@@ -4,6 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Clase conector con BBDD
+ * 
+ * @author Oscar Burgos
+ * @version Marzo/2019
+ */
 
 public final class DBConnect {
 

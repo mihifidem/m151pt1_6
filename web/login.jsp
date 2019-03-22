@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
+        <title>App Osteoporosi 1.6</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
         <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/starter-template/starter-template.css" />
 
@@ -17,7 +17,7 @@
     <body>
         <h3>Login page</h3>
         <%@include file="menu.jsp"%>
-        <br/>
+        
        <!-- Si no estás registrado, clica <a href="register.jsp">aquí</a>-->
        <p class='navbar navbar-expand-lg navbar-light bg-light'>Introduce your data login.</p>
 
@@ -32,7 +32,7 @@
                 <div class="form-group row">
                     <label class="col-sm-1 col-form-label">Password</label>
                     <div class="col-sm-3">
-                        <input class="form-control" type="text" name="password"/>
+                        <input class="form-control" type="password" name="password"/>
                     </div>
                 </div>
                 <input class="btn btn-default" type="submit" name="action" value="Validate"/>
@@ -49,11 +49,7 @@
    
                String error=request.getParameter("error");
                if(error.equals("1")) out.println("Usuario y/o contraseña incorrectas");
-           } 
-            
-            
-            
-            
+           }         
         %>
     </body>
 </html>

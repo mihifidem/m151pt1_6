@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -11,12 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Patient;
-import model.User;
 import model.persist.PatientDAO;
 import utilities.Validation;
 
 /**
- * Usercontroller.java Controlador de paciente
+ * Main.java Controlador de pacientes
  *
  * @author Oscar Burgos
  * @version marzo/2019
@@ -118,26 +116,45 @@ public class Main extends HttpServlet {
         rd.forward(request, response);
     }
 
+    /**
+     * Añade un paciente
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void addPatient(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         //recogemos desde el formulario
         String messages = "";
         Boolean menopause;
         int age = 0;
-        age = Integer.parseInt(request.getParameter("age"));
+        if (request.getParameter("age") != "") {
+            age = Integer.parseInt(request.getParameter("age"));
+        }
+
         String grupEdat = request.getParameter("grupedat");
+
         int weight = 0;
-        weight = Integer.parseInt(request.getParameter("weight"));
+        if (request.getParameter("weight") != "") {
+            weight = Integer.parseInt(request.getParameter("weight"));
+        }
+
         int height = 0;
-        height = Integer.parseInt(request.getParameter("height"));
+        if (request.getParameter("height") != "") {
+            height = Integer.parseInt(request.getParameter("height"));
+        }
         double imc = 0;
         if ((weight > 0) && (height > 0)) {
-            imc = (weight / ((height / 100) ^ 2));
+            imc = (double)(weight / ((double)(height / 100)* (double)(height/100)));
         } else {
             messages += "<br>Los valores peso y altura deben ser mayores de cero.";
         }
+
         String classification = request.getParameter("classification");
         int manarche = 0;
-        manarche = Integer.parseInt(request.getParameter("manarche"));
+        if (request.getParameter("manarche") != "") {
+            manarche = Integer.parseInt(request.getParameter("manarche"));
+        }
         if (request.getParameter("menopause") == "YES") {
             menopause = true;
         } else {
@@ -146,22 +163,22 @@ public class Main extends HttpServlet {
 
         String menopauseType = request.getParameter("menopauseType");
 
-        if (!Validation.NumEntreValues(age, 1, 120)) {
+        if (!Validation.NumEntreValues(age,1,120)) {
             messages += "<br>La edad debe estar comprendida entre 1 y 120 años";
         }
-        if (!Validation.NumEntreValues(weight, 10, 150)) {
+
+        if (!Validation.NumEntreValues(weight,10, 151)) {
             messages += "<br>El peso debe estar comprendido entre 10 y 150 Kg";
         }
-        if (!Validation.NumEntreValues(height, 30, 210)) {
+
+        if (!Validation.NumEntreValues(height,30, 211)) {
             messages += "<br>La altura debe estar comprendida entre 30 y 210 cm";
         }
-        if (!Validation.NumEntreValues(manarche, 8, 15)) {
+
+        if (!Validation.NumEntreValues(manarche,5, 18)) {
             messages += "<br>La menarquia debe estar comprendida entre los 8 y 15 años";
         }
 
-        //se podrían hacer mas validaciones
-        //por ejemplo:validar que hi hagin lletres i números al username
-        //cuando llego a este punto NO HAY errores
         if (messages.equals("")) {
             Patient p = new Patient(0, age, grupEdat, weight, height, imc, classification, manarche, menopause, menopauseType);
             //ACCESO AL ARCHIVO            
@@ -175,13 +192,18 @@ public class Main extends HttpServlet {
             }
         }
 
-        //response.sendRedirect("register.jsp?error="+messages);
         request.setAttribute("error", messages);
         RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
         rd.forward(request, response);
-
     }
 
+    /**
+     * Filtra pacientes
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
     private void filterPatient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Patient> dataPatients = new ArrayList();
         String classification = request.getParameter("classification");

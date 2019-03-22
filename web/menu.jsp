@@ -1,13 +1,13 @@
 <%
     if (session.getAttribute("name") != null) {
         out.println("Hello " + session.getAttribute("name"));
-    } 
+    }
 %>
 <br/>
 
 
 <%    if (session.getAttribute("name") != null) {
-        
+
         out.println("<nav class='navbar navbar-expand-lg navbar-light bg-light'>");
         out.println("<li class='nav-item active'>");
         out.print("<ul class='navbar-nav'>");
